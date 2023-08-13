@@ -1,3 +1,6 @@
+const User = require('./models/User');
+const Post = require('./models/Post');
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');

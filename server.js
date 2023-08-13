@@ -34,3 +34,13 @@ const Post = mongoose.model('Post', PostSchema);
 
 // Middleware for parsing JSON
 app.use(express.json());
+
+// Signup route
+app.post('/signup', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({
+      username,
+      password: hashedPassword,
+    });

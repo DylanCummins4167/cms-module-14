@@ -16,3 +16,15 @@ const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
 });
+
+const PostSchema = new mongoose.Schema({
+  title: String,
+  content: String,
+  creator: mongoose.Schema.Types.ObjectId,
+  comments: [
+    {
+      text: String,
+      creator: mongoose.Schema.Types.ObjectId,
+    },
+  ],
+});

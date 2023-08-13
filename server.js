@@ -10,3 +10,9 @@ mongoose.connect('mongodb://localhost/blog_db', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+// Define MongoDB schemas
+const UserSchema = new mongoose.Schema({
+  username: String,
+  password: String,
+});

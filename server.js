@@ -44,3 +44,10 @@ app.post('/signup', async (req, res) => {
       username,
       password: hashedPassword,
     });
+    await user.save();
+    res.status(201).json({ message: 'User created successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+  

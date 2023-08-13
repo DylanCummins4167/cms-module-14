@@ -6,3 +6,12 @@ const postSchema = new mongoose.Schema({
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   comments: [
     {
+  text: { type: String, required: true },
+      creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    },
+  ],
+});
+
+const Post = mongoose.model('Post', postSchema);
+
+module.exports = Post;

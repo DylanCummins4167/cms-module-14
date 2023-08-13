@@ -73,3 +73,11 @@ app.post('/login', async (req, res) => {
 // Protected route (requires token)
 app.get('/dashboard', authenticateToken, async (req, res) => {
   try {
+// Retrieve and send user's posts
+    const userId = req.user.userId;
+    const posts = await Post.find({ creator: userId });
+    res.json({ posts });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});

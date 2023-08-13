@@ -81,3 +81,11 @@ app.get('/dashboard', authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'An error occurred' });
   }
 });
+
+// Middleware for verifying JWT
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }

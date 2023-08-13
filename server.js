@@ -69,3 +69,7 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ error: 'An error occurred' });
   }
 });
+
+// Protected route (requires token)
+app.get('/dashboard', authenticateToken, async (req, res) => {
+  try {

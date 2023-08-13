@@ -28,3 +28,6 @@ const PostSchema = new mongoose.Schema({
     },
   ],
 });
+
+const User = mongoose.model('User', UserSchema);
+const Post = mongoose.model('Post', PostSchema);

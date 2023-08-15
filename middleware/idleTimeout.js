@@ -21,3 +21,15 @@ const idleTimeout = (timeoutDuration) => {
           // Token has expired due to idle timeout
           return res.status(403).json({ error: 'Session expired due to inactivity. Please log in again.' });
         }
+
+           // Token is valid, continue
+        next();
+      });
+    } else {
+      // No token found, user not authenticated
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+  };
+};
+
+module.exports = idleTimeout;        

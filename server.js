@@ -102,6 +102,24 @@ function authenticateToken(req, res, next) {
   });
 }
 
+const idleTimeout = require('./middlewares/idleTimeout');
+
+
+
+// Protected route (requires token and idle timeout)
+app.get('/dashboard', authenticateToken, idleTimeout(1800000), async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const posts = await Post.find({ creator: userId });
+    res.json({ posts });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+
+
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

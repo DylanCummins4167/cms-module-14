@@ -16,3 +16,8 @@ const idleTimeout = (timeoutDuration) => {
         // Calculate the time elapsed since the token was issued
         const currentTime = Date.now();
         const tokenIssuedTime = decoded.iat * 1000; // Convert seconds to milliseconds           
+
+                  if (currentTime - tokenIssuedTime > timeoutDuration) {
+          // Token has expired due to idle timeout
+          return res.status(403).json({ error: 'Session expired due to inactivity. Please log in again.' });
+        }

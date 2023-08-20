@@ -1,6 +1,3 @@
-const User = require('./models/User');
-const Post = require('./models/Post');
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
@@ -32,6 +29,7 @@ const PostSchema = new mongoose.Schema({
   ],
 });
 
+// Define models based on schemas
 const User = mongoose.model('User', UserSchema);
 const Post = mongoose.model('Post', PostSchema);
 
@@ -53,7 +51,7 @@ app.post('/signup', async (req, res) => {
     res.status(500).json({ error: 'An error occurred' });
   }
 });
-  
+
 // Login route
 app.post('/login', async (req, res) => {
   try {
@@ -85,26 +83,7 @@ app.get('/dashboard', authenticateToken, async (req, res) => {
   }
 });
 
-// Middleware for verifying JWT
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  if (!token) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-
- jwt.verify(token, 'secretkey', (err, user) => {
-    if (err) {
-      return res.status(403).json({ error: 'Forbidden' });
-    }
-    req.user = user;
-    next();
-  });
-}
-
 const idleTimeout = require('./middlewares/idleTimeout');
-
-
 
 // Protected route (requires token and idle timeout)
 app.get('/dashboard', authenticateToken, idleTimeout(1800000), async (req, res) => {
@@ -117,9 +96,7 @@ app.get('/dashboard', authenticateToken, idleTimeout(1800000), async (req, res) 
   }
 });
 
-
-
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+

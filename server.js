@@ -85,6 +85,9 @@ app.get('/dashboard', authenticateToken, async (req, res) => {
 
 const idleTimeout = require('./middlewares/idleTimeout');
 
+// Import the authenticateToken function
+const authenticateToken = require('./middlewares/authenticateToken');
+
 // Protected route (requires token and idle timeout)
 app.get('/dashboard', authenticateToken, idleTimeout(1800000), async (req, res) => {
   try {

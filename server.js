@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Import the authenticateToken function
+const authenticateToken = require('./middlewares/authenticateToken');
+
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/blog_db', {
   useNewUrlParser: true,
@@ -85,8 +88,7 @@ app.get('/dashboard', authenticateToken, async (req, res) => {
 
 const idleTimeout = require('./middlewares/idleTimeout');
 
-// Import the authenticateToken function
-const authenticateToken = require('./middlewares/authenticateToken');
+
 
 // Protected route (requires token and idle timeout)
 app.get('/dashboard', authenticateToken, idleTimeout(1800000), async (req, res) => {
@@ -102,4 +104,3 @@ app.get('/dashboard', authenticateToken, idleTimeout(1800000), async (req, res) 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
